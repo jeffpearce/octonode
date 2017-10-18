@@ -748,6 +748,14 @@ ghrepo.createContents('lib/index.js', 'commit message', 'content', 'v0.1.0', cal
 ghrepo.updateContents('lib/index.js', 'commit message', 'content', 'put-sha-here', callback); //path
 ghrepo.updateContents('lib/index.js', 'commit message', 'content', 'put-sha-here', 'master', callback); //path
 ghrepo.updateContents('lib/index.js', 'commit message', 'content', 'put-sha-here', 'v0.1.0', callback); //path
+ghrepo.updateContents('lib/index.js',
+  'commit message',
+  'content',
+  'put-sha-here', {
+    branch: 'master',
+    author: {name: 'Rockstar Dev', email: 'rockstardev@foo.com'}
+  },
+  callback); //path
 ```
 
 #### Delete a file at a path in repository
@@ -1121,6 +1129,17 @@ ghpr.update({
 }, callback); //pull request
 ```
 
+#### Merge a pull request (PUT /repos/pksunkara/hub/pulls/37/merge)
+
+```js
+ghpr.merge('commit message', callback)
+ghpr.merge({
+    commit_title: 'optional title for commit message',
+    commit_message: 'optional detail to append to title',
+    sha: 'SHA that pull request head must match to allow merge',
+    merge_method: 'merge method'
+}, callback)
+```
 #### Close a pull request
 
 ```js

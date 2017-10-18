@@ -39,9 +39,12 @@ class Pr extends Base
 
   # Merge a pull request
   # '/repos/pksunkara/hub/pulls/37/merge' PUT
-  merge: (msg, cb) ->
-    commit =
-      commit_message: msg
+  merge: (msgOrCommitOptions, cb) ->
+    if typeof msgOrCommitOptions is 'string'
+      commit =
+        commit_message: msg
+    else
+      commit = msgOrCommitOptions
     @client.put "/repos/#{@repo}/pulls/#{@number}/merge", commit, (err, s, b, h) ->
       return cb(err) if err
       if s isnt 200 then cb(new Error("Pr merge error")) else cb null, b, h
